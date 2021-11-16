@@ -29,6 +29,8 @@ set -e
 
 $SCRIPT_DIR/system-setup.sh
 
+mkdir -p out
+
 echo
 echo "              Current directory: $PWD"
 echo "                         Script: $SCRIPT_SRC"
@@ -52,7 +54,6 @@ set -xe
 # Cleanup any existing docker build
 docker stop --time 0 builder || true
 docker rm builder || true
-rm -rf out
 
 # Start the docker container to do the build inside.
 docker run -dt \
