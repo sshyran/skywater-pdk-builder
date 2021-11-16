@@ -23,6 +23,8 @@ SCRIPT_DIR="$(dirname "${SCRIPT_SRC}")"
 
 SCRIPT_DIR_REL="$(realpath $SCRIPT_DIR --relative-to=$PWD)"
 
+TOP_DIR=$PWD
+
 echo
 echo "              Current directory: $PWD"
 echo "                         Script: $SCRIPT_SRC"
@@ -74,3 +76,8 @@ $DOCKER_CMD bash /host/$SCRIPT_DIR_REL/build-open_pdks.sh
 
 # Tar up result.
 find out/pdk-* | sort | tee pdk.files
+(
+	cd out/pdk-all
+	tar -cvf --xz $TOP_DIR/out/pdk-SKY130A.tar.xz .
+)
+du -h $TOP_DIR/out/*.tar.xz
