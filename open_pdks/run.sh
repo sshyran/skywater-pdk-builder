@@ -25,6 +25,8 @@ SCRIPT_DIR_REL="$(realpath $SCRIPT_DIR --relative-to=$PWD)"
 
 TOP_DIR=$PWD
 
+set -e
+
 echo
 echo "              Current directory: $PWD"
 echo "                         Script: $SCRIPT_SRC"

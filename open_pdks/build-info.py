@@ -48,10 +48,14 @@ versions = {
 out_version = [0, 0, 0, 0]
 for k in versions:
     # Make sure that we have tags.
-    subprocess.check_call(
-        GIT_FETCH_TAGS.split(),
-        cwd=versions[k]['dir'],
-    )
+    try:
+        subprocess.check_call(
+            GIT_FETCH_TAGS.split(),
+            cwd=versions[k]['dir'],
+        )
+    except subprocess.CalledProcessError as e:
+        print(e)
+        raise
 
     v_str = subprocess.check_output(
         GIT_DESCRIBE_CMD.split(),
