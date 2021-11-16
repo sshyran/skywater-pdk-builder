@@ -15,6 +15,23 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+CALLED=$_
+[[ "${BASH_SOURCE[0]}" != "${0}" ]] && SOURCED=1 || SOURCED=0
+
+SCRIPT_SRC="$(realpath ${BASH_SOURCE[0]})"
+SCRIPT_DIR="$(dirname "${SCRIPT_SRC}")"
+
+SCRIPT_DIR_REL="$(realpath $SCRIPT_DIR --relative-to=$PWD)"
+
+echo
+echo "              Current directory: $PWD"
+echo "                         Script: $SCRIPT_SRC"
+echo "         Directory with scripts: $SCRIPT_DIR"
+echo "Relative directory with scripts: $SCRIPT_DIR_REL"
+echo
+
+find $PWD -type d | sort
+
 set -xe
 
 # This script tries to follows the instructions in the README @
@@ -47,13 +64,13 @@ DOCKER_CMD="docker exec builder"
 $DOCKER_CMD ls /host
 
 # Build Magic in a container from the cloned magic repository
-$DOCKER_CMD bash /host/build-magic.sh
+$DOCKER_CMD bash /host/$SCRIPT_DIR_REL/build-magic.sh
 
 # Run `make timing` inside the cloned skywater-pdk repository
-$DOCKER_CMD bash /host/build-skywater-pdk.sh
+$DOCKER_CMD bash /host/$SCRIPT_DIR_REL/build-skywater-pdk.sh
 
 # Run `./configure` targeting the output directory.
-$DOCKER_CMD bash /host/build-open_pdks.sh
+$DOCKER_CMD bash /host/$SCRIPT_DIR_REL/build-open_pdks.sh
 
 # Tar up result.
 find out/pdk-* | sort | tee pdk.files

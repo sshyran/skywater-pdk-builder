@@ -17,9 +17,7 @@
 
 set -xe
 
-cd /host
-ls -l
-cd skywater-pdk
+cd /host/github/skywater-pdk
 git describe
 
 git submodule init libraries/sky130_fd_io/latest

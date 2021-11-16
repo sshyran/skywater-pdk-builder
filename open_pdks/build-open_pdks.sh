@@ -19,9 +19,8 @@ set -xe
 
 export PATH=/host/out/magic/bin:$PATH
 
-cd /host
-ls -l
-cd open_pdks
+cd /host/github/open_pdks
+git describe
 
 POSSIBLE_TOOLS="all" # klayout magic netgen irsim openlane qflow xschem"
 for TTOOL in $POSSIBLE_TOOLS; do
