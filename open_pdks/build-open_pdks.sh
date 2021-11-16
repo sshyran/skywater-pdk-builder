@@ -79,7 +79,7 @@ for TTOOL in $POSSIBLE_TOOLS; do
   echo " Building PDK files for $TTOOL"
   echo "-----------------------------------------"
   ./configure \
-	--enable-sky130-pdk=/host/skywater-pdk \
+	--enable-sky130-pdk=/host/github/skywater-pdk \
 	--enable-alpha-sky130 \
 	--prefix=/usr/local \
         $KLAYOUT \
