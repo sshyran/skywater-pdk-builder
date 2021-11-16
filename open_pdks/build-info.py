@@ -18,6 +18,7 @@
 import subprocess
 import json
 
+GIT_FETCH_TAGS="git fetch --tags"
 GIT_DESCRIBE_CMD="git describe --long --always"
 GIT_LOG_CMD="git log -n 1 --stat"
 
@@ -46,6 +47,12 @@ versions = {
 
 out_version = [0, 0, 0, 0]
 for k in versions:
+    # Make sure that we have tags.
+    subprocess.check_call(
+        GIT_FETCH_TAGS.split(),
+        cwd=versions[k]['dir'],
+    )
+
     v_str = subprocess.check_output(
         GIT_DESCRIBE_CMD.split(),
         cwd=versions[k]['dir'],
