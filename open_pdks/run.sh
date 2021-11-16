@@ -77,7 +77,10 @@ $DOCKER_CMD bash /host/$SCRIPT_DIR_REL/build-open_pdks.sh
 # Tar up result.
 find out/pdk-* | sort | tee pdk.files
 (
+	whoami
+	ls -l out/pdk-all
 	cd out/pdk-all
-	tar -cvf --xz $TOP_DIR/out/pdk-SKY130A.tar.xz .
+	sudo tar -cvf --xz $TOP_DIR/out/pdk-SKY130A.tar.xz .
 )
+sudo chown $UID $TOP_DIR/out/*.tar.xz
 du -h $TOP_DIR/out/*.tar.xz
