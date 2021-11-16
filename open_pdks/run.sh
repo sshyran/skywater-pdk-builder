@@ -27,6 +27,8 @@ TOP_DIR=$PWD
 
 set -e
 
+$SCRIPT_DIR/system-setup.sh
+
 echo
 echo "              Current directory: $PWD"
 echo "                         Script: $SCRIPT_SRC"

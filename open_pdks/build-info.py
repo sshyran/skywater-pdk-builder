@@ -54,8 +54,7 @@ for k in versions:
             cwd=versions[k]['dir'],
         )
     except subprocess.CalledProcessError as e:
-        print(e)
-        raise
+        print("Error:", e)
 
     v_str = subprocess.check_output(
         GIT_DESCRIBE_CMD.split(),
