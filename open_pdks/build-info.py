@@ -64,6 +64,8 @@ for k in versions:
         v_str = 'v'+v_str
     versions[k]['version'] = v_str
 
+    assert '-' in v_str, v_str
+    assert v_str.count('-') == 2, v_str
     ver, count, commit = v_str.split('-')
     assert commit.startswith('g'), commit
     commit = commit[1:]
