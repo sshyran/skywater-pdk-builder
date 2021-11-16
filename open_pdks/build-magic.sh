@@ -51,7 +51,7 @@ apt-get clean
 apt-get -y autoremove
 rm -rf /var/lib/apt/lists/*
 
-cd /host/github/magic
+cd /host/github/RTimothyEdwards/magic
 git describe
 ./configure --prefix=/host/out/magic
 make -j$(nproc)

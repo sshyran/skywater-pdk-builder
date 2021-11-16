@@ -30,6 +30,9 @@ echo "              Current directory: $PWD"
 echo "                         Script: $SCRIPT_SRC"
 echo "         Directory with scripts: $SCRIPT_DIR"
 echo "Relative directory with scripts: $SCRIPT_DIR_REL"
+
+$SCRIPT_DIR/build-info.py
+
 echo
 
 find $PWD -type d | sort

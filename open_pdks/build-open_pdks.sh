@@ -19,7 +19,7 @@ set -xe
 
 export PATH=/host/out/magic/bin:$PATH
 
-cd /host/github/open_pdks
+cd /host/github/RTimothyEdwards/open_pdks
 git describe
 
 POSSIBLE_TOOLS="all" # klayout magic netgen irsim openlane qflow xschem"
@@ -79,7 +79,7 @@ for TTOOL in $POSSIBLE_TOOLS; do
   echo " Building PDK files for $TTOOL"
   echo "-----------------------------------------"
   ./configure \
-	--enable-sky130-pdk=/host/github/skywater-pdk \
+	--enable-sky130-pdk=/host/github/google/skywater-pdk \
 	--enable-alpha-sky130 \
 	--prefix=/usr/local \
         $KLAYOUT \
