@@ -25,9 +25,31 @@ echo
 git clone https://gerrit.googlesource.com/gcompute-tools ${KOKORO_ARTIFACTS_DIR}/gcompute-tools
 ${KOKORO_ARTIFACTS_DIR}/gcompute-tools/git-cookie-authdaemon
 
-
 git ls-remote https://foss-eda-tools.googlesource.com/skywater-pdk/builder
 
 curl -b ~/.git-credential-cache/cookie https://foss-eda-tools.googlesource.com/?format=TEXT
 
+echo "====================================================="
+
+echo
+echo
+echo "Update the builder source location"
+echo "====================================================="
+(
+	cd git/builder
+	git remote rm origin
+	git remote add origin https://foss-eda-tools.googlesource.com/skywater-pdk/builder.git
+	git ls-remote --heads origin
+)
+echo "====================================================="
+
+echo
+echo
+echo "Create the output repository"
+echo "====================================================="
+(
+	cd git
+	git clone https://foss-eda-tools.googlesource.com/skywater-pdk/output.git
+	ls -l output/
+)
 echo "====================================================="
