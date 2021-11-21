@@ -106,3 +106,6 @@ find out/pdk-* | sort | tee pdk.files
 )
 sudo chown $UID $TOP_DIR/out/*.tar.xz
 du -h $TOP_DIR/out/*.tar.xz
+
+# Fix `rsync: send_files failed to open ... Permission denied (13)`
+sudo chown -R $UID /tmpfs/src
