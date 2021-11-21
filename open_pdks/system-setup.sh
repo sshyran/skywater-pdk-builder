@@ -22,6 +22,12 @@ echo "Setting up Kokoro system"
 echo "====================================================="
 echo
 
-#sudo apt-get install -y git-remote-google
+git clone https://gerrit.googlesource.com/gcompute-tools ${KOKORO_ARTIFACTS_DIR}/gcompute-tools
+${KOKORO_ARTIFACTS_DIR}/gcompute-tools/git-cookie-authdaemon
+
+
+git ls-remote https://foss-eda-tools.googlesource.com/skywater-pdk/builder
+
+curl -b ~/.git-credential-cache/cookie https://foss-eda-tools.googlesource.com/?format=TEXT
 
 echo "====================================================="
