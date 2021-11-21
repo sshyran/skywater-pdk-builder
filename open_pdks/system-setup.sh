@@ -18,7 +18,7 @@
 set -e
 
 echo
-echo "Setting up Kokoro system"
+echo "Setting up Git-on-Borg authentication"
 echo "====================================================="
 echo
 
@@ -28,6 +28,9 @@ ${KOKORO_ARTIFACTS_DIR}/gcompute-tools/git-cookie-authdaemon
 git ls-remote https://foss-eda-tools.googlesource.com/skywater-pdk/builder
 
 curl -b ~/.git-credential-cache/cookie https://foss-eda-tools.googlesource.com/?format=TEXT
+
+git config --global user.name "SkyWater PDK Robot"
+git config --global user.email robot@skywater.tools
 
 echo "====================================================="
 

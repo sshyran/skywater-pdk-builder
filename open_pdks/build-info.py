@@ -15,8 +15,9 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-import subprocess
 import json
+import os
+import subprocess
 
 GIT_FETCH_TAGS="git fetch --tags"
 GIT_DESCRIBE_CMD="git describe --long --always"
@@ -98,7 +99,14 @@ info = """\
   SkyWater PDK: {skywater_pdk}
      Open-PDKs: {open_pdks}
          Magic: {magic}
-""".format(**version_strings)
+
+Build results @ https://source.cloud.google.com/results/invocations/{KOKORO_BUILD_ID}
+Build artifacts @ https://console.cloud.google.com/storage/browser/open_pdks/skywater-pdk/artifacts/{KOKORO_BUILD_ARTIFACTS_SUBDIR}
+
+""".format(
+    KOKORO_BUILD_ID=os.environ['KOKORO_BUILD_ID'],
+    KOKORO_BUILD_ARTIFACTS_SUBDIR=os.environ['KOKORO_BUILD_ARTIFACTS_SUBDIR'],
+    **version_strings)
 
 print(info)
 
@@ -107,3 +115,13 @@ with open('out/build.info', 'w') as f:
 
 with open('out/build.json', 'w') as f:
     json.dump(versions, f, sort_keys=True, indent=2)
+
+with open('out/build.sh', 'w') as f:
+    for k, v in version_strings.items():
+        k = k.upper()
+        f.write("VERSION_{}='{}'\n".format(k, v))
+        f.write("export VERSION_{}\n".format(k))
+
+with open('out/build.msg', 'w') as f:
+    f.write("Build {}\n\n".format(version_strings['final']))
+    f.write(info)

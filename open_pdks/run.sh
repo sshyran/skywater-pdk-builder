@@ -24,6 +24,7 @@ SCRIPT_DIR="$(dirname "${SCRIPT_SRC}")"
 SCRIPT_DIR_REL="$(realpath $SCRIPT_DIR --relative-to=$PWD)"
 
 TOP_DIR=$PWD
+export TOP_DIR
 
 set -e
 
@@ -39,11 +40,17 @@ echo "Relative directory with scripts: $SCRIPT_DIR_REL"
 
 $SCRIPT_DIR/build-info.py
 
+cat out/build.sh
+source out/build.sh
+
 echo
 
 find $PWD -type d | sort
 
 set -xe
+
+$SCRIPT_DIR/output-cleanup.sh
+$SCRIPT_DIR/output-start.sh
 
 # This script tries to follows the instructions in the README @
 # https://github.com/RTimothyEdwards/open_pdks/tree/master/sky130 with a couple
@@ -109,3 +116,8 @@ du -h $TOP_DIR/out/*.tar.xz
 
 # Fix `rsync: send_files failed to open ... Permission denied (13)`
 sudo chown -R $UID /tmpfs/src
+
+# Copy into the output git repositories
+$SCRIPT_DIR/output-build.sh
+
+$SCRIPT_DIR/output-cleanup.sh
