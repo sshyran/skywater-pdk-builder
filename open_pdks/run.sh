@@ -114,8 +114,15 @@ find out/pdk-* | sort | tee pdk.files
 sudo chown $UID $TOP_DIR/out/*.tar.xz
 du -h $TOP_DIR/out/*.tar.xz
 
+# Cleanup directories in output directory so that Kokoro is faster.
 # Fix `rsync: send_files failed to open ... Permission denied (13)`
-sudo chown -R $UID /tmpfs/src
+for D in $TOP_DIR/out/*; do
+	if [ ! -d "$D" ]; then
+		echo "Skipping $D"
+		continue
+	fi
+	sudo rm -rf "$D"
+done
 
 # Copy into the output git repositories
 $SCRIPT_DIR/output-build.sh
