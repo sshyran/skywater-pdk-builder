@@ -123,6 +123,7 @@ for D in $TOP_DIR/out/*; do
 	fi
 	sudo rm -rf "$D"
 done
+sudo chown -R $UID /tmpfs/src
 
 # Copy into the output git repositories
 $SCRIPT_DIR/output-build.sh
