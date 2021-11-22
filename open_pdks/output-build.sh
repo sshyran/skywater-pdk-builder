@@ -18,10 +18,13 @@
 set -e
 
 cd /tmpfs/src/git/output
+# Remove the current contents
+rm -rf *
 # Copy into the output git repositories
 tar -Jxvf /tmpfs/src/out/pdk-SKY130A.tar.xz .
 cp /tmpfs/src/out/build.info .
 cp /tmpfs/src/out/build.json .
+# Restore the two toplevel files
 git checkout HEAD README.md
 git checkout HEAD LICENSE
 
