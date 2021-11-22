@@ -92,8 +92,6 @@ $DOCKER_CMD bash /host/$SCRIPT_DIR_REL/build-open_pdks.sh
 # Tar up result.
 find out/pdk-* | sort | tee pdk.files
 (
-	whoami
-	ls -l out/pdk-all
 	cd out/pdk-all
 	# Try to create a deterministic tar file
 	# https://reproducible-builds.org/docs/archives/
@@ -110,6 +108,22 @@ find out/pdk-* | sort | tee pdk.files
 		--pax-option=exthdr.name=%d/PaxHeaders/%f,delete=atime,delete=ctime \
 		\
 		--file $TOP_DIR/out/pdk-SKY130A.tar.xz .
+)
+(
+	cd out/magic
+	sudo tar \
+		--create \
+		--xz \
+		--verbose \
+		\
+		--mtime='2020-05-07 00:00Z' \
+		--sort=name \
+		--owner=0 \
+		--group=0 \
+		--numeric-owner \
+		--pax-option=exthdr.name=%d/PaxHeaders/%f,delete=atime,delete=ctime \
+		\
+		--file $TOP_DIR/out/magic.tar.xz .
 )
 sudo chown $UID $TOP_DIR/out/*.tar.xz
 du -h $TOP_DIR/out/*.tar.xz
