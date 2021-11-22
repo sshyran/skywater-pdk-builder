@@ -18,4 +18,8 @@
 set -e
 
 cd /tmpfs/src/git/output
+cp /tmpfs/src/out/build.info .
+cp /tmpfs/src/out/build.json .
+git commit -a -F /tmpfs/src/out/build.msg
 git push origin main:building-$VERSION_FINAL
+git reset --hard origin/main
