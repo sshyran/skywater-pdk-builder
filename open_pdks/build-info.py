@@ -104,8 +104,8 @@ Build results @ https://source.cloud.google.com/results/invocations/{KOKORO_BUIL
 Build artifacts @ https://console.cloud.google.com/storage/browser/open_pdks/skywater-pdk/artifacts/{KOKORO_BUILD_ARTIFACTS_SUBDIR}
 
 """.format(
-    KOKORO_BUILD_ID=os.environ['KOKORO_BUILD_ID'],
-    KOKORO_BUILD_ARTIFACTS_SUBDIR=os.environ['KOKORO_BUILD_ARTIFACTS_SUBDIR'],
+    KOKORO_BUILD_ID=os.environ.get('KOKORO_BUILD_ID', '???'),
+    KOKORO_BUILD_ARTIFACTS_SUBDIR=os.environ.get('KOKORO_BUILD_ARTIFACTS_SUBDIR', '???'),
     **version_strings)
 
 print(info)

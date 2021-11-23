@@ -28,7 +28,11 @@ export TOP_DIR
 
 set -e
 
-$SCRIPT_DIR/system-setup.sh
+if [ "$KOKORO_BUILD_ID" != "" ]; then
+	$SCRIPT_DIR/system-setup.sh
+else
+	sudo chown -R $UID $TOP_DIR
+fi
 
 mkdir -p out
 
@@ -48,9 +52,12 @@ echo
 find $PWD -type d | sort
 
 set -xe
+set -o pipefail
 
-$SCRIPT_DIR/output-cleanup.sh
-$SCRIPT_DIR/output-start.sh
+if [ "$KOKORO_BUILD_ID" != "" ]; then
+	$SCRIPT_DIR/output-cleanup.sh
+	$SCRIPT_DIR/output-start.sh
+fi
 
 # This script tries to follows the instructions in the README @
 # https://github.com/RTimothyEdwards/open_pdks/tree/master/sky130 with a couple
@@ -137,9 +144,11 @@ for D in $TOP_DIR/out/*; do
 	fi
 	sudo rm -rf "$D"
 done
-sudo chown -R $UID /tmpfs/src
+sudo chown -R $UID $TOP_DIR
 
-# Copy into the output git repositories
-$SCRIPT_DIR/output-build.sh
-
-$SCRIPT_DIR/output-cleanup.sh
+if [ "$KOKORO_BUILD_ID" != "" ]; then
+	# Copy into the output git repositories
+	$SCRIPT_DIR/output-build.sh
+	# Cleanup the progress info
+	$SCRIPT_DIR/output-cleanup.sh
+fi
