@@ -16,6 +16,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 set -xe
+set -o pipefail
 
 cd /host/github/google/skywater-pdk
 git describe
