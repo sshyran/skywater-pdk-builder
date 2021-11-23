@@ -91,8 +91,8 @@ for TTOOL in $POSSIBLE_TOOLS; do
         $QFLOW \
         $XSCHEM \
 
-  make -j$(nproc) > /host/out/pdk-$TTOOL.build.log
-  make DESTDIR=/host/out/pdk-$TTOOL install > /host/out/pdk-$TTOOL.install.log
+  make -j$(nproc) | tee /host/out/pdk-$TTOOL.build.log
+  make DESTDIR=/host/out/pdk-$TTOOL install | tee /host/out/pdk-$TTOOL.install.log
   echo "========================================="
 
   echo
