@@ -95,6 +95,7 @@ $DOCKER_CMD bash /host/$SCRIPT_DIR_REL/build-skywater-pdk.sh
 
 # Run `./configure` targeting the output directory.
 $DOCKER_CMD bash /host/$SCRIPT_DIR_REL/build-open_pdks.sh
+$DOCKER_CMD bash /host/$SCRIPT_DIR_REL/post-open_pdks.sh
 
 # Tar up result.
 find out/pdk-* | sort | tee pdk.files
