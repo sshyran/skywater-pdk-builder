@@ -21,8 +21,8 @@ set -o pipefail
 export PATH=/host/out/magic/bin:$PATH
 
 # Clear timestamps in magic files
-find out/pdk-* -name '*.mag' -exec sed -i -e's/timestamp [0-9]\+/timestamp 0/' \{\} \+
+find /host/out/pdk-* -name '*.mag' -exec sed -i -e's/timestamp [0-9]\+/timestamp 0/' \{\} \+
 
 # Clear timestamps in GDS files
-find out/pdk-* -name '*.gds' -exec /host/git/builder/open_pdks/gds_change_date.py 1 0 \{\}
+find /host/out/pdk-* -name '*.gds' -exec /host/git/builder/open_pdks/gds_change_date.py 1 0 \{\}
 #find out/pdk-* -name '*.gds' -print | parallel -v /host/git/builder/open_pdks/gds_change_date.py 1 0 \{\}
